@@ -1,0 +1,19 @@
+a:link {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.userInfoDisplayName {
+    padding: 10px;
+    color: white;
+}
+
+.userInfoImage {
+    height: 100%;
+    width: auto;
+}

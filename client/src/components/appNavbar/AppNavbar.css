@@ -1,0 +1,23 @@
+nav {
+  color: #777
+}
+
+.brand-link,
+.brand-link:hover {
+  color: #bbb;
+  text-decoration: none;
+}
+
+.nav-item a {
+  color: #bbb;
+  padding-right: 20px;
+  text-decoration: none;
+}
+
+.nav-item a.active {
+  font-weight: bold;
+}
+
+.nav-item #logout {
+  font-weight: normal;
+}
