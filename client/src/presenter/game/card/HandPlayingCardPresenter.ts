@@ -46,7 +46,7 @@ export class HandPlayingCardPresenter<T extends Card> extends PlayingCardPresent
   }
 
   sizeUpdate(): void {
-    this.addStyle({zIndex: this._index, position: "absolute", height: "100%", width: "auto", cursor: "pointer"});
+    this.addStyle({zIndex: this._index, cursor: "pointer"});
     this._sizeUpdate();
   }
 }
