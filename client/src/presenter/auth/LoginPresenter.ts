@@ -2,7 +2,7 @@ import {AuthPresenter, AuthView} from "./AuthPresenter";
 
 
 export class LoginPresenter extends AuthPresenter {
-  private originalUrl: string | undefined;
+  private readonly originalUrl: string | undefined;
 
   constructor(view: AuthView, originalUrl?: string) {
     super(view);

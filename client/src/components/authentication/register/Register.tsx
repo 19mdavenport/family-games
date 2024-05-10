@@ -76,7 +76,7 @@ const Register = (props: Props) => {
   const [presenter] = useState(props.presenterGenerator(listener));
 
   const doRegister = async () => {
-    presenter.doRegister(firstName, lastName, username, password, confirmPassword, imageBytes);
+    await presenter.doRegister(firstName, lastName, username, password, confirmPassword, imageBytes);
   };
 
   const inputFieldGenerator = () => {

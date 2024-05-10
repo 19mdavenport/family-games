@@ -41,7 +41,7 @@ const Login = (props: Props) => {
   const [presenter] = useState(props.presenterGenerator(listener));
 
   const doLogin = async () => {
-    presenter.doLogin(username, password);
+    await presenter.doLogin(username, password);
   };
 
   const inputFieldGenerator = () => {

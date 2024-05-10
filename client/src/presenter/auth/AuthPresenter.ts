@@ -10,7 +10,7 @@ export interface AuthView extends MessageView {
 
 export abstract class AuthPresenter extends MessagePresenter<AuthView> {
     private _rememberMe: boolean;
-    private _service: UserService;
+    private readonly _service: UserService;
 
     public constructor(view: AuthView) {
         super(view);
