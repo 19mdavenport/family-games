@@ -6,7 +6,7 @@ import PlayingCard from "./PlayingCard";
 import usePresenter, {PresenterProps} from "../../../hooks/presenter/PresenterHook";
 import PlayingCardGroup from "./PlayingCardGroup";
 
-const CardStack = <T extends Card>(props: PresenterProps<CardStackView<T>, CardStackPresenter<T>>) => {
+const CardStack = <T extends Card>(props: PresenterProps<CardStackView, CardStackPresenter<T>>) => {
   const [open, setOpen] = React.useState(false);
 
   const presenter = usePresenter(props, {setOpen});
@@ -14,12 +14,12 @@ const CardStack = <T extends Card>(props: PresenterProps<CardStackView<T>, CardS
   if(!presenter) return (<></>);
   const pres = presenter as CardStackPresenter<T>;
   return (
-    <>
+    <div style={{position: "absolute", height: "15%"}}>
       <PlayingCard presenterGenerator={(view) => pres.makeTopCardPresenter(view)}/>
-      {open && <PopUp onClose={() => pres.popUpClosed()}>
+      {open && <PopUp containerStyle={{position: "absolute", height: "15%"}} onClose={() => pres.popUpClosed()}>
         <PlayingCardGroup presenterGenerator={(view) => pres.makeGroupPresenter(view)}/>
       </PopUp>}
-    </>
+    </div>
   )
 }
 export default CardStack
