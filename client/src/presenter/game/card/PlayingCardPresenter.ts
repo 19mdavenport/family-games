@@ -20,7 +20,9 @@ export class PlayingCardPresenter<T extends Card> extends StylePresenter<Playing
 
   mouseEnter(): void {}
   mouseLeave(): void {}
-  mouseDown(): void {}
+  mouseDown(): void {
+    console.log("click")
+  }
   mouseMove(event: React.MouseEvent<HTMLElement>): void {}
   mouseUp(): void {}
   sizeUpdate(): void {

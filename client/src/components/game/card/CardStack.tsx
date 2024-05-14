@@ -16,7 +16,7 @@ const CardStack = <T extends Card>(props: PresenterProps<CardStackView, CardStac
   return (
     <div>
       <PlayingCard presenterGenerator={(view) => pres.makeTopCardPresenter(view)}/>
-      {open && <PopUp containerStyle={{position: "absolute", height: "15%", width: "fit-content"}} onClose={() => pres.popUpClosed()}>
+      {open && <PopUp onClose={() => pres.popUpClosed()}>
         <PlayingCardGroup presenterGenerator={(view) => pres.makeGroupPresenter(view)}/>
       </PopUp>}
     </div>

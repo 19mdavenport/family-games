@@ -26,9 +26,10 @@ export class CardStackPresenter<T extends Card> extends Presenter<CardStackView>
   }
 
   makeGroupPresenter(view: PlayingCardGroupView) {
+    const heightPx = `${this.topCardPresenter!.viewSize.height}px`;
     this.groupPresenter = new PlayingCardGroupPresenter<T>(view, this._cards,
-      {display: "flex", overflowX: "auto"},
-      {height: `${this.topCardPresenter!.viewSize.height}px`, width: "auto"});
+      {display: "flex", height: heightPx},
+      {height: heightPx, width: "auto"});
     return this.groupPresenter;
   }
 

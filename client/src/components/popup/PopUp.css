@@ -9,16 +9,28 @@
     align-items: center;
     justify-content: center;
     z-index: 100;
+    cursor: pointer;
 }
 
 .popUpContainer {
     position: relative;
     width: fit-content;
     height: fit-content;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.popUp {
+    width: fit-content;
+    height: fit-content;
+    max-width: 100%;
+    max-height: 100%;
     overflow-y: auto;
     overflow-x: auto;
     padding: 20px;
+    margin-top: 5px;
     z-index: 101;
+    cursor: auto;
 }
 
 .closeButton {

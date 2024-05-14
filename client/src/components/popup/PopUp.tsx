@@ -10,9 +10,11 @@ interface Props {
 const PopUp = (props: Props) => {
   return (
     <div className="popUpOverlay" onClick={props.onClose}>
-      <div className="popUpContainer bg-dark" style={props.containerStyle}>
+      <div className="popUpContainer bg-dark">
         <span onClick={props.onClose} className="closeButton">x</span>
-        {props.children}
+        <div className="popUp" style={props.containerStyle}>
+          {props.children}
+        </div>
       </div>
     </div>
   )
