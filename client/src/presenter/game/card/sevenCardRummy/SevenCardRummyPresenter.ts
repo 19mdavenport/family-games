@@ -25,13 +25,13 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   }
 
   makeDrawPile(view: CardStackView): CardStackPresenter<PokerCard> {
-    this.drawPile = new CardStackPresenter(view);
+    this.drawPile = new CardStackPresenter(view, {position: "absolute", height: "15%", width: "auto", right: "53%", top: "47%"});
     setTimeout(() => this.drawPile!.cards = [...FakeData.instance.oppCards, ...FakeData.instance.oppCards, ...FakeData.instance.oppCards], 100);
     return this.drawPile;
   }
 
   makeDiscardPile(view: CardStackView): CardStackPresenter<PokerCard> {
-    this.discardPile = new CardStackPresenter(view);
+    this.discardPile = new CardStackPresenter(view, {position: "absolute", height: "15%", width: "auto", left: "53%", top: "47%"});
     setTimeout(() => this.discardPile!.cards = [...FakeData.instance.handOfCards, ...FakeData.instance.handOfCards, ...FakeData.instance.handOfCards], 100);
     return this.discardPile;
   }
