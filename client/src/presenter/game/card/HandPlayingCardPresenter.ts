@@ -4,11 +4,11 @@ import {PlayingCardPresenter, PlayingCardView} from "./PlayingCardPresenter";
 
 export class HandPlayingCardPresenter<T extends Card> extends PlayingCardPresenter<T> {
   private readonly _index: number;
-  private _onCardHover: (hovered: boolean) => void;
-  private _sizeUpdate: () => void;
+  private readonly _onCardHover: (hovered: boolean) => void;
+  private readonly _sizeUpdate: () => void;
 
   constructor(view: PlayingCardView, onCardHover: (hovered: boolean) => void, sizeUpdate: () => void, index: number) {
-    super(view);
+    super(view, {zIndex: index, cursor: "pointer", position: "absolute", height: "100%", width: "auto"});
     this._onCardHover = onCardHover;
     this._sizeUpdate = sizeUpdate;
     this._index = index;
@@ -46,7 +46,7 @@ export class HandPlayingCardPresenter<T extends Card> extends PlayingCardPresent
   }
 
   sizeUpdate(): void {
-    this.addStyle({zIndex: this._index, cursor: "pointer"});
+    super.sizeUpdate();
     this._sizeUpdate();
   }
 }
