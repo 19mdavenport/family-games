@@ -1,7 +1,7 @@
 import {Card} from "../../../model/game/Card";
 import {PlayingCardPresenter, PlayingCardView} from "./PlayingCardPresenter";
 import {StylePresenter, StyleView} from "../../StylePresenter";
-import React from "react";
+import React, {CSSProperties} from "react";
 
 export interface PlayingCardGroupView extends StyleView {
   setNumCards(numCards: number): void;
@@ -12,11 +12,13 @@ export class PlayingCardGroupPresenter<T extends Card, C extends PlayingCardPres
 
   protected _cards: T[];
   private readonly _presenters: PlayingCardPresenter<T>[];
+  private readonly childStyle: CSSProperties;
 
-  constructor(view: PlayingCardGroupView, cards: T[], style: React.CSSProperties) {
+  constructor(view: PlayingCardGroupView, cards: T[], style?: React.CSSProperties, childStyle?: CSSProperties) {
     super(view, style);
     this._cards = cards;
     this._presenters = Array<C>(cards.length);
+    this.childStyle = childStyle || {};
   }
 
   makeChildPresenter(view: PlayingCardView, index: number) {
@@ -26,7 +28,7 @@ export class PlayingCardGroupPresenter<T extends Card, C extends PlayingCardPres
   }
 
   createChildPresenter(view: PlayingCardView, index: number) {
-    return new PlayingCardPresenter<T>(view, {}, this._cards[index]);
+    return new PlayingCardPresenter<T>(view, this.childStyle, this._cards[index]);
   }
 
   updateAll() {

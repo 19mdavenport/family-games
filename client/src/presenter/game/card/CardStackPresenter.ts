@@ -13,20 +13,22 @@ export class CardStackPresenter<T extends Card> extends Presenter<CardStackView>
   private topCardPresenter: CardStackTopPresenter<T> | null = null;
   private groupPresenter: PlayingCardGroupPresenter<T> | null = null;
   private _cards: T[] = [];
-  private readonly style: CSSProperties;
+  private readonly topCardStyle: CSSProperties;
 
-  constructor(view: CardStackView, style: CSSProperties) {
+  constructor(view: CardStackView, topCardStyle: CSSProperties) {
     super(view);
-    this.style = style;
+    this.topCardStyle = {cursor: "pointer", ...topCardStyle};
   }
 
   makeTopCardPresenter(view: PlayingCardView) {
-    this.topCardPresenter = new CardStackTopPresenter(view, this.style, () => this.topClicked());
+    this.topCardPresenter = new CardStackTopPresenter(view, this.topCardStyle, () => this.topClicked());
     return this.topCardPresenter;
   }
 
   makeGroupPresenter(view: PlayingCardGroupView) {
-    this.groupPresenter = new PlayingCardGroupPresenter<T>(view, this._cards, {height: "15%", width: "auto"});
+    this.groupPresenter = new PlayingCardGroupPresenter<T>(view, this._cards,
+      {display: "flex", overflowX: "auto"},
+      {height: `${this.topCardPresenter!.viewSize.height}px`, width: "auto"});
     return this.groupPresenter;
   }
 
