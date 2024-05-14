@@ -1,4 +1,3 @@
-import "./PlayingCard.css"
 import useElementSize from "../../../hooks/size/ElementSizeHook";
 import {Card} from "../../../model/game/Card";
 import {PlayingCardPresenter, PlayingCardView} from "../../../presenter/game/card/PlayingCardPresenter";

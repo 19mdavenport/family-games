@@ -1,4 +1,3 @@
-import "./PlayingCard.css"
 import useElementSize from "../../../hooks/size/ElementSizeHook";
 import React from "react";
 import {Card} from "../../../model/game/Card";
@@ -14,13 +13,13 @@ interface Props<T extends Card> {
 }
 
 const SelectedCard = <T extends Card>(props: Props<T>) => {
-  const {ref, width} = useElementSize<HTMLImageElement>();
+  const {ref, size} = useElementSize<HTMLImageElement>();
   const maxWidth = window.innerWidth * 2 / 3 > window.innerHeight ? props.parentWidth / 2 : window.innerWidth * 3 / 2 > window.innerHeight ? props.parentWidth * 3 / 4 : props.parentWidth;
 
   function calcNewIndex(xPos: number) {
     let offset = Math.abs(props.parentWidth - Math.min(props.parentWidth, maxWidth)) / 2;
-    if (width * props.total > maxWidth) {
-      return Math.floor((xPos - offset) * props.total / (maxWidth - width));
+    if (size.width * props.total > maxWidth) {
+      return Math.floor((xPos - offset) * props.total / (maxWidth - size.width));
     } else return 0;
   }
 
