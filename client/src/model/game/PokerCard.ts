@@ -27,8 +27,8 @@ export class PokerCard implements Card {
   }
 
   imageUrl() {
-    if (this._rank == Rank.JOKER) return "./cards/1J.svg";
-    if (this._rank == Rank.HIDDEN) return "./cards/1B.svg";
+    if (this._rank == Rank.JOKER) return "./cards/Joker.svg";
+    if (this._rank == Rank.HIDDEN) return "./cards/Back.svg";
     let value;
     let suit;
     switch (this._rank) {
