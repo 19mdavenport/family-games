@@ -15,12 +15,12 @@ export abstract class StylePresenter<T extends StyleView> extends Presenter<T> {
     this._style = initialStyle || {};
   }
 
-  protected addStyle(style: React.CSSProperties) {
+  addStyle(style: React.CSSProperties) {
     this._style = {...this._style, ...style};
     this.setStyle()
   }
 
-  protected removeStyle(style: React.CSSProperties) {
+  removeStyle(style: React.CSSProperties) {
     Object.keys(style).forEach(key => delete (this._style as any)[key]);
     this.setStyle()
   }

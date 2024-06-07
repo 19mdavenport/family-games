@@ -1,6 +1,6 @@
 import {Card} from "../../../model/game/Card";
 import {StylePresenter, StyleView} from "../../StylePresenter";
-import React, {CSSProperties} from "react";
+import {CSSProperties} from "react";
 
 export interface PlayingCardView extends StyleView {
   setImageUrl(imageUrl: string): void;
@@ -21,7 +21,6 @@ export class PlayingCardPresenter<T extends Card> extends StylePresenter<Playing
   mouseEnter(): void {}
   mouseLeave(): void {}
   mouseDown(): void {}
-  mouseMove(event: React.MouseEvent<HTMLElement>): void {}
   mouseUp(): void {}
   sizeUpdate(): void {
     super.sizeUpdate();

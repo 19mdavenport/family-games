@@ -20,7 +20,6 @@ const PlayingCard = <T extends Card>(props: PresenterProps<PlayingCardView, Play
          onMouseEnter={() => presenter!.mouseEnter()}
          onMouseLeave={() => presenter!.mouseLeave()}
          onMouseDown={() => presenter!.mouseDown()}
-         onMouseMove={(event) => presenter!.mouseMove(event)}
          onMouseUp={() => presenter!.mouseUp()}
          onDragStart={(e) => e.preventDefault()}
       />

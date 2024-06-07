@@ -8,8 +8,10 @@ import {
 } from "../../../../presenter/game/card/sevenCardRummy/SevenCardRummyPresenter";
 import usePresenter, {PresenterProps} from "../../../../hooks/presenter/PresenterHook";
 import useToastListener from "../../../../hooks/toaster/ToastListenerHook";
+import PlayingCard from "../PlayingCard";
 
 const SevenCardRummy = (props: PresenterProps<SevenCardRummyView, SevenCardRummyPresenter>) => {
+  const [cardSelected, setCardSelected] = React.useState<boolean>(false);
   const presenter = usePresenter(props, useToastListener());
 
   if(!presenter) return (<></>);
@@ -24,6 +26,7 @@ const SevenCardRummy = (props: PresenterProps<SevenCardRummyView, SevenCardRummy
 
       <UserInfo style={{position: "absolute", bottom: "22%", left: "50%", transform: "translate(-50%, 0)", height: "5%", width: "fit-content"}}/>
       <PlayingCardGroup presenterGenerator={(view) => pres.makeUserHandPresenter(view)}/>
+      <PlayingCard presenterGenerator={(view) => pres.makeSelectedCard(view)} />
     </>
   )
 }
