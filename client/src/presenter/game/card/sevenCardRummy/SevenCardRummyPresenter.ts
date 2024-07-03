@@ -32,13 +32,13 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
 
   makeDrawPile(view: CardStackView): CardStackPresenter<PokerCard> {
     this.drawPile = new CardStackPresenter(view, {position: "absolute", height: "15%", width: "auto", left: "53%", top: "47%"});
-    setTimeout(() => this.drawPile!.cards = this.game.drawStack, 100);
+    this.drawPile!.cards = this.game.drawStack;
     return this.drawPile;
   }
 
   makeDiscardPile(view: CardStackView): CardStackPresenter<PokerCard> {
     this.discardPile = new CardStackPresenter(view, {position: "absolute", height: "15%", width: "auto", right: "53%", top: "47%"});
-    setTimeout(() => this.discardPile!.cards = this.game.discards, 100);
+    this.discardPile!.cards = this.game.discards;
     return this.discardPile;
   }
 

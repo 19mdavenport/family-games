@@ -22,6 +22,7 @@ export class CardStackPresenter<T extends Card> extends Presenter<CardStackView>
 
   makeTopCardPresenter(view: PlayingCardView) {
     this.topCardPresenter = new CardStackTopPresenter(view, this.topCardStyle, () => this.topClicked());
+    if(this._cards.length > 0) this.topCardPresenter.card = this._cards[0];
     return this.topCardPresenter;
   }
 
