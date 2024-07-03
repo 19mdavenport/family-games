@@ -1,6 +1,6 @@
 import AuthToken from "../model/domain/AuthToken";
 import User from "../model/domain/User";
-import {PokerCard, Rank, Suit} from "../model/game/PokerCard";
+import {PokerCard, Rank, Suit} from "../model/game/card/PokerCard";
 
 const MALE_IMAGE_URL: string =
   "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";

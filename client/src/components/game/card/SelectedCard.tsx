@@ -1,6 +1,6 @@
 import useElementSize from "../../../hooks/size/ElementSizeHook";
 import React from "react";
-import {Card} from "../../../model/game/Card";
+import {Card} from "../../../model/game/card/Card";
 
 interface Props<T extends Card> {
   card: T

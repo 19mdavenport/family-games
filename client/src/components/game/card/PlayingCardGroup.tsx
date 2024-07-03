@@ -1,7 +1,7 @@
 import PlayingCard from "./PlayingCard";
 import React, {ReactElement, useEffect, useState} from "react";
 import useElementSize from "../../../hooks/size/ElementSizeHook";
-import {Card} from "../../../model/game/Card";
+import {Card} from "../../../model/game/card/Card";
 import usePresenter, {PresenterProps} from "../../../hooks/presenter/PresenterHook";
 import {PlayingCardGroupPresenter, PlayingCardGroupView} from "../../../presenter/game/card/PlayingCardGroupPresenter";
 

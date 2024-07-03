@@ -1,6 +1,6 @@
 import {Presenter, View} from "../../Presenter";
 import {CardStackTopPresenter} from "./CardStackTopPresenter";
-import {Card} from "../../../model/game/Card";
+import {Card} from "../../../model/game/card/Card";
 import { PlayingCardView } from "./PlayingCardPresenter";
 import {PlayingCardGroupPresenter, PlayingCardGroupView} from "./PlayingCardGroupPresenter";
 import {CSSProperties} from "react";

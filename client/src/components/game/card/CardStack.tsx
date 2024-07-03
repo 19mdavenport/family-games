@@ -1,7 +1,7 @@
 import React from "react";
 import PopUp from "../../popup/PopUp";
 import {CardStackPresenter, CardStackView} from "../../../presenter/game/card/CardStackPresenter";
-import {Card} from "../../../model/game/Card";
+import {Card} from "../../../model/game/card/Card";
 import PlayingCard from "./PlayingCard";
 import usePresenter, {PresenterProps} from "../../../hooks/presenter/PresenterHook";
 import PlayingCardGroup from "./PlayingCardGroup";

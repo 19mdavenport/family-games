@@ -12,7 +12,7 @@ import PlayingCard from "../PlayingCard";
 
 const SevenCardRummy = (props: PresenterProps<SevenCardRummyView, SevenCardRummyPresenter>) => {
   const [cardSelected, setCardSelected] = React.useState<boolean>(false);
-  const presenter = usePresenter(props, useToastListener());
+  const presenter = usePresenter(props, {...useToastListener(), setCardSelected});
 
   if(!presenter) return (<></>);
   const pres = presenter as SevenCardRummyPresenter;
@@ -21,12 +21,12 @@ const SevenCardRummy = (props: PresenterProps<SevenCardRummyView, SevenCardRummy
       <PlayingCardGroup presenterGenerator={(view) => pres.makeOpponentHandPresenter(view)}/>
       <UserInfo style={{position: "absolute", top: "31%", left: "50%", transform: "translate(-50%, 0)", height: "5%", width: "fit-content"}}/>
 
-      <CardStack presenterGenerator={(view) => pres.makeDrawPile(view)}/>
       <CardStack presenterGenerator={(view) => pres.makeDiscardPile(view)}/>
+      <CardStack presenterGenerator={(view) => pres.makeDrawPile(view)}/>
 
       <UserInfo style={{position: "absolute", bottom: "22%", left: "50%", transform: "translate(-50%, 0)", height: "5%", width: "fit-content"}}/>
       <PlayingCardGroup presenterGenerator={(view) => pres.makeUserHandPresenter(view)}/>
-      <PlayingCard presenterGenerator={(view) => pres.makeSelectedCard(view)} />
+      {cardSelected && <PlayingCard presenterGenerator={(view) => pres.makeSelectedCard(view)} />}
     </>
   )
 }

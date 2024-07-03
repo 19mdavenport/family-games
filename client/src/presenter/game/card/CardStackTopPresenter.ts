@@ -1,5 +1,5 @@
 import {PlayingCardPresenter, PlayingCardView} from "./PlayingCardPresenter";
-import {Card} from "../../../model/game/Card";
+import {Card} from "../../../model/game/card/Card";
 import {CSSProperties} from "react";
 
 export class CardStackTopPresenter<T extends Card> extends PlayingCardPresenter<T> {

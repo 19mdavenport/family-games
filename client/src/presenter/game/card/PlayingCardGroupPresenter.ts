@@ -1,4 +1,4 @@
-import {Card} from "../../../model/game/Card";
+import {Card} from "../../../model/game/card/Card";
 import {PlayingCardPresenter, PlayingCardView} from "./PlayingCardPresenter";
 import {StylePresenter, StyleView} from "../../StylePresenter";
 import React, {CSSProperties} from "react";

@@ -1,5 +1,5 @@
 import useElementSize from "../../../hooks/size/ElementSizeHook";
-import {Card} from "../../../model/game/Card";
+import {Card} from "../../../model/game/card/Card";
 import {PlayingCardPresenter, PlayingCardView} from "../../../presenter/game/card/PlayingCardPresenter";
 import React, {useEffect, useState} from "react";
 import usePresenter, {PresenterProps} from "../../../hooks/presenter/PresenterHook";

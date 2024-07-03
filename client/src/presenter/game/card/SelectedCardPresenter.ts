@@ -1,5 +1,5 @@
 import {PlayingCardPresenter, PlayingCardView} from "./PlayingCardPresenter";
-import {Card} from "../../../model/game/Card";
+import {Card} from "../../../model/game/card/Card";
 import React, {CSSProperties} from "react";
 
 export class SelectedCardPresenter<T extends Card> extends PlayingCardPresenter<T>{
