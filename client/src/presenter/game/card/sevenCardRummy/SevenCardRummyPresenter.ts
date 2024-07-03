@@ -6,7 +6,6 @@ import {CardStackPresenter, CardStackView} from "../CardStackPresenter";
 import {PlayingCardGroupView} from "../PlayingCardGroupPresenter";
 import {SelectedCardPresenter} from "../SelectedCardPresenter";
 import {PlayingCardView} from "../PlayingCardPresenter";
-import React from "react";
 
 export interface SevenCardRummyView extends GameView {
 
@@ -20,12 +19,12 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   private selectedCard: SelectedCardPresenter<PokerCard> | null = null;
 
   makeUserHandPresenter(view: PlayingCardGroupView): PlayingCardHandPresenter<PokerCard> {
-    this.userHand = new PlayingCardHandPresenter(view, FakeData.instance.handOfCards, {position: "absolute", width: "100%", height: "15%", bottom: "5%"})
+    this.userHand = new PlayingCardHandPresenter(view, (index) => this.selectCard(index), FakeData.instance.handOfCards, {position: "absolute", width: "100%", height: "15%", bottom: "5%"})
     return this.userHand;
   }
 
   makeOpponentHandPresenter(view: PlayingCardGroupView): PlayingCardHandPresenter<PokerCard> {
-    this.opponentHand = new PlayingCardHandPresenter(view, FakeData.instance.oppCards, {position: "absolute", width: "100%", height: "15%"})
+    this.opponentHand = new PlayingCardHandPresenter(view, () => {}, FakeData.instance.oppCards, {position: "absolute", width: "100%", height: "15%"})
     return this.opponentHand;
   }
 
@@ -61,6 +60,10 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
 
   mouseUp() {
     debugger;
+  }
+
+  selectCard(index: number) {
+
   }
 
 }

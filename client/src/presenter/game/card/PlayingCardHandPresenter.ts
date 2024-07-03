@@ -6,14 +6,17 @@ import {PlayingCardGroupPresenter, PlayingCardGroupView} from "./PlayingCardGrou
 
 export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPresenter<T, HandPlayingCardPresenter<T>> {
   private _focused: number | null = null;
+  private readonly _onCardSelected: (index: number) => void;
 
-  constructor(view: PlayingCardGroupView, cards: T[], style: React.CSSProperties) {
+  constructor(view: PlayingCardGroupView, onCardSelected: (index: number) => void, cards: T[], style: React.CSSProperties) {
     super(view, cards, style);
+    this._onCardSelected = onCardSelected;
   }
 
   createChildPresenter(view: PlayingCardView, index: number) {
     return new HandPlayingCardPresenter<T>(view,
       (hovered: boolean) => this.setFocus(hovered ? index : null),
+      () => this._onCardSelected(index),
       () => this.update(index),
       index);
   }
