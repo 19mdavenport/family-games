@@ -7,7 +7,7 @@ export interface StyleView extends View {
 }
 
 export abstract class StylePresenter<T extends StyleView> extends Presenter<T> {
-  private _style: React.CSSProperties = {};
+  private _style: React.CSSProperties;
   private _viewSize: Size = {width: 0, height: 0};
 
   protected constructor(view: T, initialStyle?: CSSProperties) {
@@ -17,11 +17,6 @@ export abstract class StylePresenter<T extends StyleView> extends Presenter<T> {
 
   addStyle(style: React.CSSProperties) {
     this._style = {...this._style, ...style};
-    this.setStyle()
-  }
-
-  removeStyle(style: React.CSSProperties) {
-    Object.keys(style).forEach(key => delete (this._style as any)[key]);
     this.setStyle()
   }
 
