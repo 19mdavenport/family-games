@@ -19,6 +19,16 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   private drawPile: CardStackPresenter<PokerCard> | null = null;
   private discardPile: CardStackPresenter<PokerCard> | null = null;
   private selectedCard: SelectedCardPresenter<PokerCard> | null = null;
+  private card: PokerCard | null = null;
+  private mousePos: {x: number, y: number} = {x: 0, y: 0};
+
+  constructor(view: SevenCardRummyView) {
+    super(view);
+    window.addEventListener("mousemove", (event) => {
+      this.mousePos = {x: event.clientX, y: event.clientY};
+      this.updateCardPos()
+    })
+  }
 
   makeUserHandPresenter(view: PlayingCardGroupView): PlayingCardHandPresenter<PokerCard> {
     this.userHand = new PlayingCardHandPresenter(view, (index) => this.selectCard(index), this.game.hand, {position: "absolute", width: "100%", height: "15%", bottom: "5%"})
@@ -26,7 +36,7 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   }
 
   makeOpponentHandPresenter(view: PlayingCardGroupView): PlayingCardHandPresenter<PokerCard> {
-    this.opponentHand = new PlayingCardHandPresenter(view, () => {}, this.game.oppHand, {position: "absolute", width: "100%", height: "15%"})
+    this.opponentHand = new PlayingCardHandPresenter(view, () => {}, this.game.oppHand, {position: "absolute", width: "100%", height: "15%", top: "14%"})
     return this.opponentHand;
   }
 
@@ -43,19 +53,20 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   }
 
   makeSelectedCard(view: PlayingCardView): SelectedCardPresenter<PokerCard> {
-    this.selectedCard = new SelectedCardPresenter<PokerCard>(view, () => this.mouseUp(), {position: "absolute", zIndex: 10})
-    window.addEventListener("mousemove", (event) => this.mouseMove(event))
+    const height = this.userHand ? `${this.userHand.viewSize.height}px` : "20%";
+    this.selectedCard = new SelectedCardPresenter<PokerCard>(view, () => this.mouseUp(), () => this.updateCardPos(), {position: "absolute", zIndex: 10, height: height, top: -100, left: -100}, this.card || undefined);
     return this.selectedCard;
   }
 
-  mouseMove(event: MouseEvent) {
+  updateCardPos() {
     if(this.selectedCard) {
-      const newHeight = this.userHand ? `${this.userHand.viewSize.height}px` : "20%";
       const width = this.selectedCard.viewSize.width;
       const height = this.selectedCard.viewSize.height;
-      const x = Math.max(Math.min(event.clientX - width / 2, window.innerWidth - width), 0);
-      const y = Math.max(Math.min(event.clientY - height / 2, window.innerHeight - height), 0);
-      this.selectedCard.addStyle({left: x, top: y, height: newHeight});
+      const x = Math.max(Math.min(this.mousePos.x - width / 2, window.innerWidth - width), 0);
+      const y = Math.max(Math.min(this.mousePos.y - height / 2, window.innerHeight - height), 0);
+      if(width > 0 && height > 0) {
+        this.selectedCard.addStyle({left: x, top: y, display: "unset"});
+      }
     }
   }
 
@@ -65,7 +76,10 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   }
 
   selectCard(index: number) {
-    // this.selectedCard.card =
+    this.card = this.game.hand[index];
+    if(this.selectedCard) {
+      this.selectedCard.card = this.card;
+    }
     this.view.setCardSelected(true);
   }
 
