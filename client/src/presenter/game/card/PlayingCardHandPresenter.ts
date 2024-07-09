@@ -3,11 +3,10 @@ import {HandPlayingCardPresenter} from "./HandPlayingCardPresenter";
 import {PlayingCardView} from "./PlayingCardPresenter";
 import React from "react";
 import {PlayingCardGroupPresenter, PlayingCardGroupView} from "./PlayingCardGroupPresenter";
-import {i} from "vite/dist/node/types.d-aGj9QkWt";
 
 export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPresenter<T, HandPlayingCardPresenter<T>> {
   private _focused: number | null = null;
-  private _lock: number | null = null;
+  private _locked: boolean = false;
   private readonly _onCardSelected: (index: number) => void;
 
   constructor(view: PlayingCardGroupView, onCardSelected: (index: number) => void, cards: T[], style: React.CSSProperties) {
@@ -46,18 +45,30 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
   }
 
   setFocus(focus: number | null) {
-    this._focused = focus;
-    this.updateAll();
+    if(!this._locked || focus != null) {
+      this._focused = focus;
+      this.updateAll();
+    }
+  }
+
+  set locked(locked: boolean) {
+    this._locked = locked;
+    if(!locked) {
+      this._focused = null;
+      this.updateAll();
+    }
   }
 
   shiftLock(xPos: number) {
-    const firstChild = this.getChildPresenter(0);
-    if(firstChild) xPos -= firstChild.viewSize.width / 2;
-    const newIndex = this._cards.map((_card: Card, index: number) => {
-      return {index: index, xPos: xPos - this.calcXOffset(index, null, this._cards.length)}
-    }).toSorted((a, b) => Math.abs(a.xPos) - Math.abs(b.xPos))[0].index;
-    this._cards[newIndex] = this._cards.splice(this._focused!, 1, this._cards[newIndex])[0];
-    this.setFocus(newIndex);
+    if(this._locked) {
+      const firstChild = this.getChildPresenter(0);
+      if (firstChild) xPos -= firstChild.viewSize.width / 2;
+      const newIndex = this._cards.map((_card: Card, index: number) => {
+        return {index: index, xPos: xPos - this.calcXOffset(index, null, this._cards.length)}
+      }).toSorted((a, b) => Math.abs(a.xPos) - Math.abs(b.xPos))[0].index;
+      this._cards[newIndex] = this._cards.splice(this._focused!, 1, this._cards[newIndex])[0];
+      this.setFocus(newIndex);
+    }
   }
 
 }
