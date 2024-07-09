@@ -55,6 +55,7 @@ export class PlayingCardGroupPresenter<T extends Card, C extends PlayingCardPres
 
   set cards(cards: T[]) {
     this._cards = cards;
+    this._presenters.length = cards.length;
     this.updateAll();
   }
 }

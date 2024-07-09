@@ -16,24 +16,11 @@ export class HandPlayingCardPresenter<T extends Card> extends PlayingCardPresent
     this._index = index;
   }
 
-  updatePos(parentWidth: number, maxWidth: number, focused: number | null, total: number) {
-    this.addStyle({
-      left: Math.floor(this.calcXOffset(parentWidth, maxWidth, focused, total)),
-      transform: focused === this._index ? "translateY(-10px)" : "none",
-    });
+  updatePos(xPos: number, focused: boolean) {
+    this.addStyle({left: xPos, transform: focused ? "translateY(-10px)" : "none"});
   }
 
-  private calcXOffset(parentWidth: number, maxWidth: number, focused: number | null, total: number) {
-    let offset = (parentWidth - maxWidth) / 2;
-    const width = this.viewSize.width;
-    if (width * total > maxWidth) {
-      if(focused != null && focused != total - 1) {
-        focused >= this._index ? offset -= this._index : offset += total - this._index;
-      }
-      return (maxWidth - width) * this._index / (total - 1) + offset;
-    }
-    else return (maxWidth - width * total) / 2 + width * this._index + offset;
-  }
+
 
   mouseEnter() {
     this._onCardHover(true)
