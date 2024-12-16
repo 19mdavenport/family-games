@@ -45,7 +45,7 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
   }
 
   setFocus(focus: number | null) {
-    if(!this._locked || focus != null) {
+    if(!this._locked) {
       this._focused = focus;
       this.updateAll();
     }
@@ -67,7 +67,8 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
         return {index: index, xPos: xPos - this.calcXOffset(index, null, this._cards.length)}
       }).toSorted((a, b) => Math.abs(a.xPos) - Math.abs(b.xPos))[0].index;
       this._cards[newIndex] = this._cards.splice(this._focused!, 1, this._cards[newIndex])[0];
-      this.setFocus(newIndex);
+      this._focused = newIndex;
+      this.updateAll();
     }
   }
 
