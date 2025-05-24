@@ -1,6 +1,7 @@
 import AuthToken from "../model/domain/AuthToken";
 import User from "../model/domain/User";
 import {PokerCard, Rank, Suit} from "../model/game/card/PokerCard";
+import {GameEvent} from "../model/game/events/GameEvent";
 
 const MALE_IMAGE_URL: string =
   "https://faculty.cs.byu.edu/~jwilkerson/cs340/tweeter/images/donald_duck.png";
@@ -41,6 +42,7 @@ export class FakeData {
 
   private _handOfCards: PokerCard[] = []
   private _oppCards: PokerCard[] = []
+  private _events: GameEvent[] = []
 
   public get fakeUsers(): User[] {
     return this.allUsers;
@@ -52,6 +54,10 @@ export class FakeData {
 
   public get oppCards() {
     return this._oppCards;
+  }
+
+  public get events() {
+    return this._events;
   }
 
   private static _instance: FakeData;
@@ -69,20 +75,18 @@ export class FakeData {
 
   private constructor() {
     // eslint-disable-next-line no-self-compare
-    if (this.fakeUsers !== this.fakeUsers) {
-      // Verify that this.fakeUsers always returns the same list of users (this could be violated by mock implementations of fakeUsers)
-      throw new Error(
-        "fakeUsers should return the same list of fake users each time it's called",
-      );
-    }
 
-    for(let i = 0; i < 7; i++) {
+    let timestamp = Date.now() - 400000;
+
+    for (let i = 0; i < 7; i++) {
       const suit: Suit = Math.floor(Math.random() * 4);
       const rank: Rank = Math.floor(Math.random() * 13);
       this._handOfCards.push(new PokerCard(suit, rank));
       this._oppCards.push(new PokerCard(Suit.SPECIAL, Rank.HIDDEN));
-    }
 
+      this._events.push(new GameEvent("asdf" + (i + 1), timestamp));
+      timestamp += Math.round(Math.random() * 100000);
+    }
   }
 
 
