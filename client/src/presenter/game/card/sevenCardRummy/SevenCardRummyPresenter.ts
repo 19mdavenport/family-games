@@ -39,7 +39,7 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
           this.userHand?.readdSelectedCard(this.card!, this.mousePos.x);
           this.selectedCardInHand = true;
         }
-        if(this.selectedCardInHand) {
+        else if(this.selectedCardInHand) {
           this.userHand?.shiftLock(this.mousePos.x);
         }
       }
@@ -87,7 +87,6 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   }
 
   mouseUp() {
-    // debugger;
     this.view.setCardSelected(false);
     this.userHand!.locked = false;
     this.selectedCardInHand = null;

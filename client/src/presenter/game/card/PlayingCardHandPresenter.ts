@@ -56,14 +56,10 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
 
   set locked(locked: boolean) {
     this._locked = locked;
-    if(this._focused) {
-      if (!locked) {
-        this.getChildPresenter(this._focused!).showTentative(false);
-        this._focused = null;
-        this.updateAll();
-      } else {
-        this.getChildPresenter(this._focused!).showTentative(true);
-      }
+    if(this._focused !== null && !locked) {
+      this.getChildPresenter(this._focused!).showTentative(false);
+      this._focused = null;
+      this.updateAll();
     }
   }
 
