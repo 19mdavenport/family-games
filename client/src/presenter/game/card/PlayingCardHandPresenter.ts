@@ -37,7 +37,7 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
     else if (window.innerWidth * 3 / 2 > window.innerHeight) maxWidth = width * 3 / 4
     else maxWidth = width;
     let offset = (width - maxWidth) / 2;
-    const childWidth = this.getChildPresenter(index).viewSize.width;
+    const childWidth = this.getChildPresenter(0).viewSize.width;
     if (childWidth * total > maxWidth) {
       if(focused != null && focused != total - 1) {
         focused >= index ? offset -= index : offset += total - index;

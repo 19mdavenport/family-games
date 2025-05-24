@@ -32,10 +32,10 @@ export class PlayingCardGroupPresenter<T extends Card, C extends PlayingCardPres
   }
 
   updateAll() {
+    this.view.setNumCards(this._cards.length);
     for (let i = 0; i < this._presenters.length; i++) {
       if (this._presenters[i]) this.update(i);
     }
-    this.view.setNumCards(this._cards.length);
   }
 
   update(index: number) {
