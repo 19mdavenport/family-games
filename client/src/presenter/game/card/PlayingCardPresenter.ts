@@ -20,9 +20,9 @@ export class PlayingCardPresenter<T extends Card> extends StylePresenter<Playing
 
   showTentative(isTentative: boolean) {
     if (isTentative) {
-      this.addStyle({opacity: "0.4"});
+      this.addStyle({filter: "brightness(50%)"});
     } else {
-      this.addStyle({opacity: "unset"});
+      this.addStyle({filter: "brightness(100%)"});
     }
   }
 
