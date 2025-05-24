@@ -30,15 +30,15 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
       if(this.selectedCard) {
         this.updateCardPos()
 
-        if(this.selectedCardInHand === true && this.mousePos.y < window.innerHeight * 0.7) {
+        if(this.selectedCardInHand === true && this.mousePos.y < window.innerHeight * 0.685) {
           this.userHand?.removeSelectedCard();
+          this.userHand?.updateAll();
           this.selectedCardInHand = false;
         }
-        else if (this.selectedCardInHand === false && this.mousePos.y > window.innerWidth * 0.7) {
-          this.userHand?.readdSelectedCard(this.card!);
+        else if (this.selectedCardInHand === false && this.mousePos.y > window.innerHeight * 0.685) {
+          this.userHand?.readdSelectedCard(this.card!, this.mousePos.x);
           this.selectedCardInHand = true;
         }
-
         if(this.selectedCardInHand) {
           this.userHand?.shiftLock(this.mousePos.x);
         }

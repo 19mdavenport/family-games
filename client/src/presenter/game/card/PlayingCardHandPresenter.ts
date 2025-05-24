@@ -4,6 +4,8 @@ import {PlayingCardView} from "./PlayingCardPresenter";
 import React from "react";
 import {PlayingCardGroupPresenter, PlayingCardGroupView} from "./PlayingCardGroupPresenter";
 import {PokerCard} from "../../../model/game/card/PokerCard";
+import {Simulate} from "react-dom/test-utils";
+import focus = Simulate.focus;
 
 export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPresenter<T, HandPlayingCardPresenter<T>> {
   _focused: number | null = null;
@@ -24,7 +26,7 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
   }
 
   update(index: number) {
-    this.getChildPresenter(index).updatePos(this.calcXOffset(index, this._focused, this._cards.length), this._focused == index);
+    this.getChildPresenter(index).updatePos(this.calcXOffset(index, this._focused, this._cards.length), this._focused === index);
     super.update(index);
   }
 
@@ -72,7 +74,8 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
       const newIndex = this._cards.map((_card: Card, index: number) => {
         return {index: index, xPos: xPos - this.calcXOffset(index, null, this._cards.length)}
       }).toSorted((a, b) => Math.abs(a.xPos) - Math.abs(b.xPos))[0].index;
-      this._cards[newIndex] = this._cards.splice(this._focused!, 1, this._cards[newIndex])[0];
+      const card = this._cards.splice(this._focused!, 1)[0];
+      this._cards.splice(newIndex, 0, card);
       this.getChildPresenter(this._focused!).showTentative(false);
       this.getChildPresenter(newIndex).showTentative(true);
       this._focused = newIndex;
@@ -84,13 +87,12 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
     this.getChildPresenter(this._focused!).showTentative(false);
     this._cards.splice(this._focused!, 1);
     this._focused = null;
-    this.updateAll();
   }
 
-  readdSelectedCard(card: T) {
-    this._focused = this._cards.length;
-    this._cards.push(card);
-    this.updateAll();
+  readdSelectedCard(card: T, xPos: number) {
+    this._focused = 0;
+    this._cards.splice(0, 0, card);
+    this.shiftLock(xPos);
   }
 
 }
