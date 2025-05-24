@@ -30,7 +30,7 @@ const SevenCardRummy = (props: PresenterProps<SevenCardRummyView, SevenCardRummy
       <PlayingCardGroup presenterGenerator={(view) => pres.makeUserHandPresenter(view)}/>
 
       {cardSelected && <PlayingCard presenterGenerator={(view) => pres.makeSelectedCard(view)} />}
-      <EventLog style={{position: "absolute", backgroundColor: "rgba(0, 0, 0, 0.25)", height: "30%", top: "45%", width: "25%", left: "2%"}} itemStyle={{fontSize: "smaller"}} presenterGenerator={(view) => new EventLogPresenter(view)}/>
+      <EventLog style={{position: "absolute", backgroundColor: "rgba(0, 0, 0, 0.25)", height: "30%", top: "45%", width: "25%", left: "2%", overflow: "auto scroll"}} itemStyle={{fontSize: "smaller"}} presenterGenerator={(view) => new EventLogPresenter(view)}/>
     </>
   )
 }
