@@ -18,6 +18,14 @@ export class PlayingCardPresenter<T extends Card> extends StylePresenter<Playing
     this.view.setImageUrl(value.imageUrl());
   }
 
+  showTentative(isTentative: boolean) {
+    if (isTentative) {
+      this.addStyle({opacity: "0.4"});
+    } else {
+      this.addStyle({opacity: "unset"});
+    }
+  }
+
   mouseEnter(): void {}
   mouseLeave(): void {}
   mouseDown(): void {}

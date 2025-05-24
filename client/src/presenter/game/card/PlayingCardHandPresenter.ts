@@ -5,7 +5,7 @@ import React from "react";
 import {PlayingCardGroupPresenter, PlayingCardGroupView} from "./PlayingCardGroupPresenter";
 
 export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPresenter<T, HandPlayingCardPresenter<T>> {
-  private _focused: number | null = null;
+  _focused: number | null = null;
   private _locked: boolean = false;
   private readonly _onCardSelected: (index: number) => void;
 
@@ -54,8 +54,11 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
   set locked(locked: boolean) {
     this._locked = locked;
     if(!locked) {
+      this.getChildPresenter(this._focused!).showTentative(false);
       this._focused = null;
       this.updateAll();
+    } else {
+      this.getChildPresenter(this._focused!).showTentative(true);
     }
   }
 
@@ -67,6 +70,8 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
         return {index: index, xPos: xPos - this.calcXOffset(index, null, this._cards.length)}
       }).toSorted((a, b) => Math.abs(a.xPos) - Math.abs(b.xPos))[0].index;
       this._cards[newIndex] = this._cards.splice(this._focused!, 1, this._cards[newIndex])[0];
+      this.getChildPresenter(this._focused!).showTentative(false);
+      this.getChildPresenter(newIndex).showTentative(true);
       this._focused = newIndex;
       this.updateAll();
     }

@@ -49,7 +49,7 @@ export class PlayingCardGroupPresenter<T extends Card, C extends PlayingCardPres
     this.updateAll();
   }
 
-  protected getChildPresenter(index: number) {
+  getChildPresenter(index: number) {
     return this._presenters[index] as C;
   }
 
