@@ -13,7 +13,7 @@ export interface SevenCardRummyView extends GameView {
 }
 
 export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
-  private game: SevenCardRummyGame = new SevenCardRummyGame(FakeData.instance.handOfCards, FakeData.instance.oppCards, [...FakeData.instance.handOfCards, ...FakeData.instance.handOfCards, ...FakeData.instance.handOfCards], [...FakeData.instance.oppCards, ...FakeData.instance.oppCards, ...FakeData.instance.oppCards]);
+  private game: SevenCardRummyGame = new SevenCardRummyGame(FakeData.instance.handOfCards, FakeData.instance.oppCards, [...FakeData.instance.oppCards, ...FakeData.instance.oppCards, ...FakeData.instance.oppCards], [...FakeData.instance.handOfCards, ...FakeData.instance.handOfCards, ...FakeData.instance.handOfCards]);
   private userHand: PlayingCardHandPresenter<PokerCard> | null = null;
   private opponentHand: PlayingCardHandPresenter<PokerCard> | null = null;
   private drawPile: CardStackPresenter<PokerCard> | null = null;
@@ -33,10 +33,12 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
         if(this.selectedCardInHand === true && this.mousePos.y < window.innerHeight * 0.685) {
           this.userHand?.removeSelectedCard();
           this.userHand?.updateAll();
+          this.discardPile?.addTentativeCard(this.card!);
           this.selectedCardInHand = false;
         }
         else if (this.selectedCardInHand === false && this.mousePos.y > window.innerHeight * 0.685) {
           this.userHand?.readdSelectedCard(this.card!, this.mousePos.x);
+          this.discardPile?.removeTentativeCard(false);
           this.selectedCardInHand = true;
         }
         else if(this.selectedCardInHand) {
@@ -57,13 +59,13 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   }
 
   makeDrawPile(view: CardStackView): CardStackPresenter<PokerCard> {
-    this.drawPile = new CardStackPresenter(view, {position: "absolute", height: "15%", width: "auto", left: "53%", top: "47%"});
+    this.drawPile = new CardStackPresenter(view, {position: "absolute", height: "15%", width: "auto", right: "53%", top: "47%"});
     this.drawPile!.cards = this.game.drawStack;
     return this.drawPile;
   }
 
   makeDiscardPile(view: CardStackView): CardStackPresenter<PokerCard> {
-    this.discardPile = new CardStackPresenter(view, {position: "absolute", height: "15%", width: "auto", right: "53%", top: "47%"});
+    this.discardPile = new CardStackPresenter(view, {position: "absolute", height: "15%", width: "auto", left: "53%", top: "47%"});
     this.discardPile!.cards = this.game.discards;
     return this.discardPile;
   }
@@ -89,6 +91,9 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   mouseUp() {
     this.view.setCardSelected(false);
     this.userHand!.locked = false;
+    if(this.selectedCardInHand === false) {
+      this.discardPile?.removeTentativeCard(true);
+    }
     this.selectedCardInHand = null;
   }
 

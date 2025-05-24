@@ -13,6 +13,7 @@ export class CardStackPresenter<T extends Card> extends Presenter<CardStackView>
   private topCardPresenter: CardStackTopPresenter<T> | null = null;
   private groupPresenter: PlayingCardGroupPresenter<T> | null = null;
   private _cards: T[] = [];
+  private topCard: T | null = null;
   private readonly topCardStyle: CSSProperties;
 
   constructor(view: CardStackView, topCardStyle: CSSProperties) {
@@ -22,7 +23,7 @@ export class CardStackPresenter<T extends Card> extends Presenter<CardStackView>
 
   makeTopCardPresenter(view: PlayingCardView) {
     this.topCardPresenter = new CardStackTopPresenter(view, this.topCardStyle, () => this.topClicked());
-    if(this._cards.length > 0) this.topCardPresenter.card = this._cards[0];
+    if(this.topCard) this.topCardPresenter.card = this.topCard;
     return this.topCardPresenter;
   }
 
@@ -43,8 +44,32 @@ export class CardStackPresenter<T extends Card> extends Presenter<CardStackView>
   }
 
   set cards(cards: T[]) {
-    if(this.topCardPresenter && cards.length > 0) this.topCardPresenter.card = cards[0];
+    if(cards.length > 0) {
+      this.topCard = cards[0];
+      if(this.topCardPresenter) this.topCardPresenter.card = this.topCard;
+    }
     if(this.groupPresenter) this.groupPresenter.cards = cards;
     this._cards = cards;
   }
+
+  addTentativeCard(card: T) {
+    this.topCard = card;
+    if(this.topCardPresenter) {
+      this.topCardPresenter.card = card;
+      this.topCardPresenter.showTentative(true);
+    }
+  }
+
+  removeTentativeCard(keepCard: boolean) {
+    if(this.topCardPresenter) {
+      if (keepCard) {
+        this._cards.splice(0, 0, this.topCard!);
+        if (this.groupPresenter) this.groupPresenter.cards = this._cards;
+      } else {
+        this.topCardPresenter.card = this._cards[0];
+      }
+      this.topCardPresenter.showTentative(false);
+    }
+  }
+
 }
