@@ -3,6 +3,7 @@ import {HandPlayingCardPresenter} from "./HandPlayingCardPresenter";
 import {PlayingCardView} from "./PlayingCardPresenter";
 import React from "react";
 import {PlayingCardGroupPresenter, PlayingCardGroupView} from "./PlayingCardGroupPresenter";
+import {PokerCard} from "../../../model/game/card/PokerCard";
 
 export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPresenter<T, HandPlayingCardPresenter<T>> {
   _focused: number | null = null;
@@ -53,12 +54,14 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
 
   set locked(locked: boolean) {
     this._locked = locked;
-    if(!locked) {
-      this.getChildPresenter(this._focused!).showTentative(false);
-      this._focused = null;
-      this.updateAll();
-    } else {
-      this.getChildPresenter(this._focused!).showTentative(true);
+    if(this._focused) {
+      if (!locked) {
+        this.getChildPresenter(this._focused!).showTentative(false);
+        this._focused = null;
+        this.updateAll();
+      } else {
+        this.getChildPresenter(this._focused!).showTentative(true);
+      }
     }
   }
 
@@ -75,6 +78,19 @@ export class PlayingCardHandPresenter<T extends Card> extends PlayingCardGroupPr
       this._focused = newIndex;
       this.updateAll();
     }
+  }
+
+  removeSelectedCard() {
+    this.getChildPresenter(this._focused!).showTentative(false);
+    this._cards.splice(this._focused!, 1);
+    this._focused = null;
+    this.updateAll();
+  }
+
+  readdSelectedCard(card: T) {
+    this._focused = this._cards.length;
+    this._cards.push(card);
+    this.updateAll();
   }
 
 }

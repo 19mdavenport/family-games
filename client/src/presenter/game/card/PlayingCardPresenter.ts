@@ -7,7 +7,7 @@ export interface PlayingCardView extends StyleView {
 }
 
 export class PlayingCardPresenter<T extends Card> extends StylePresenter<PlayingCardView> {
-  private readonly initialCard: T | undefined;
+  initialCard: T | undefined;
 
   constructor(view: PlayingCardView, style?: CSSProperties, initialCard?: T) {
     super(view, style);

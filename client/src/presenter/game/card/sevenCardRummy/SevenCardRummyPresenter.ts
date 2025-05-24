@@ -21,6 +21,7 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
   private selectedCard: SelectedCardPresenter<PokerCard> | null = null;
   private card: PokerCard | null = null;
   private mousePos: {x: number, y: number} = {x: 0, y: 0};
+  private selectedCardInHand: boolean | null = null;
 
   constructor(view: SevenCardRummyView) {
     super(view);
@@ -28,7 +29,19 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
       this.mousePos = {x: event.clientX, y: event.clientY};
       if(this.selectedCard) {
         this.updateCardPos()
-        this.userHand?.shiftLock(this.mousePos.x);
+
+        if(this.selectedCardInHand === true && this.mousePos.y < window.innerHeight * 0.7) {
+          this.userHand?.removeSelectedCard();
+          this.selectedCardInHand = false;
+        }
+        else if (this.selectedCardInHand === false && this.mousePos.y > window.innerWidth * 0.7) {
+          this.userHand?.readdSelectedCard(this.card!);
+          this.selectedCardInHand = true;
+        }
+
+        if(this.selectedCardInHand) {
+          this.userHand?.shiftLock(this.mousePos.x);
+        }
       }
     })
   }
@@ -77,6 +90,7 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
     // debugger;
     this.view.setCardSelected(false);
     this.userHand!.locked = false;
+    this.selectedCardInHand = null;
   }
 
   selectCard(index: number) {
@@ -86,6 +100,7 @@ export class SevenCardRummyPresenter extends GamePresenter<SevenCardRummyView> {
     }
     this.view.setCardSelected(true);
     this.userHand!.locked = true;
+    this.selectedCardInHand = true;
   }
 
 }
