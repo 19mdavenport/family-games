@@ -2,8 +2,8 @@ package dev.mdaven.familygames.server;
 
 import io.javalin.Javalin;
 import io.javalin.apibuilder.ApiBuilder;
-import io.javalin.http.*;
-import org.jetbrains.annotations.NotNull;
+import io.javalin.http.ExceptionHandler;
+import io.javalin.http.HandlerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +21,7 @@ public class FamilyGamesServer {
                 LOGGER.warn("frontend resource folder not found, not including static files");
             }
 
-            config.router.apiBuilder(() -> {
-
+            config.routes.apiBuilder(() -> {
                 ApiBuilder.path("/api", () -> {
                     ApiBuilder.before("/*", ctx -> {
                         if (ctx.method() != HandlerType.OPTIONS) {
@@ -30,18 +29,15 @@ public class FamilyGamesServer {
                         }
                     });
 
-//                    ApiBuilder.post("/asdf");
-
-//                    ApiBuilder.get("/asdf");
-
                 });
             });
+            config.routes.exception(Exception.class, haltWithCode(500));
         })
 
 //        .options("/*", )
 
 //        .ws("/ws", )
-        .exception(Exception.class, haltWithCode(500))
+
 //        .error(HttpStatus.NOT_FOUND, )
         .start(port);
 
