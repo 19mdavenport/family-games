@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface UserDAO {
     void create(User user);
-    User retrieve(UUID id);
+    User read(UUID id);
     void update(User user);
     void delete(UUID id);
 }

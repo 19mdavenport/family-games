@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface ProfileDAO {
     void create(Profile profile);
-    Profile retrieve(UUID userId);
+    Profile read(UUID userId);
     void update(Profile profile);
     void delete(UUID userId);
 }

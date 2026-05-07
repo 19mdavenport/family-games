@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface AuthenticationDAO {
     void create(Authentication auth);
-    Authentication retrieve(UUID token);
+    Authentication read(UUID token);
     void delete(UUID token);
     void deleteOlderThan(long timestamp);
 }

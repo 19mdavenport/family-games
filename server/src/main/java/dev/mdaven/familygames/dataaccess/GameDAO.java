@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public interface GameDAO {
     void create(Game game);
-    Game retrieve(UUID id);
-    Collection<Game> retrieveAll();
+    Game read(UUID id);
+    Collection<Game> readAll();
     void update(Game game);
     void delete(UUID id);
 }
