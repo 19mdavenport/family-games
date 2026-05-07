@@ -80,7 +80,7 @@ public abstract class GameDAOTest {
     }
 
     @Test
-    public void testUpdate() throws DataAccessException {
+    public void testUpdateSuccess() throws DataAccessException {
         gameDAO.create(examples[0]);
         Game updated = new Game(examples[0].id(), "different name", new SevenCardRummyGame());
         gameDAO.update(updated);
@@ -98,7 +98,7 @@ public abstract class GameDAOTest {
     }
 
     @Test
-    public void testDelete() throws DataAccessException {
+    public void testDeleteSuccess() throws DataAccessException {
         for (Game game : examples) {
             gameDAO.create(game);
 

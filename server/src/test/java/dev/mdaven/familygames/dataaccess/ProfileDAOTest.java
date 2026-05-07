@@ -64,7 +64,7 @@ public abstract class ProfileDAOTest {
     }
 
     @Test
-    public void testUpdate() throws DataAccessException {
+    public void testUpdateSuccess() throws DataAccessException {
         profileDAO.create(examples[0]);
         Profile updated = new Profile(examples[0].userId(), "different name");
         profileDAO.update(updated);
@@ -82,7 +82,7 @@ public abstract class ProfileDAOTest {
     }
 
     @Test
-    public void testDelete() throws DataAccessException {
+    public void testDeleteSuccess() throws DataAccessException {
         for (Profile profile : examples) {
             profileDAO.create(profile);
 

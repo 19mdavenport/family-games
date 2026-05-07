@@ -69,7 +69,7 @@ public abstract class AuthenticationDAOTest {
     }
 
     @Test
-    public void testDelete() throws DataAccessException {
+    public void testDeleteSuccess() throws DataAccessException {
         for (Authentication auth : examples) {
             authenticationDAO.create(auth);
 

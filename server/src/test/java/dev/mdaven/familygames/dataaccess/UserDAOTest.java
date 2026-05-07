@@ -63,7 +63,7 @@ public abstract class UserDAOTest {
     }
 
     @Test
-    public void testUpdate() throws DataAccessException {
+    public void testUpdateSuccess() throws DataAccessException {
         userDAO.create(examples[0]);
         User updated = new User(examples[0].id(), examples[0].email(), "changed_my_pa$$w0rd");
         userDAO.update(updated);
@@ -81,7 +81,7 @@ public abstract class UserDAOTest {
     }
 
     @Test
-    public void testDelete() throws DataAccessException {
+    public void testDeleteSuccess() throws DataAccessException {
         for (User user : examples) {
             userDAO.create(user);
 
