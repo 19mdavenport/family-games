@@ -21,4 +21,8 @@ public class ServerException extends Exception {
         super(cause);
         this.reason = reason;
     }
+
+    public Reason getReason() {
+        return reason;
+    }
 }
