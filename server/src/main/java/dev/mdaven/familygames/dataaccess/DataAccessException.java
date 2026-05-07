@@ -1,10 +1,13 @@
 package dev.mdaven.familygames.dataaccess;
 
-public class DataAccessException extends Exception {
+import dev.mdaven.familygames.server.ServerException;
+
+public class DataAccessException extends ServerException {
     public DataAccessException(String message) {
-        super(message);
+        super(Reason.SERVER_ERROR, message);
     }
+
     public DataAccessException(String message, Throwable cause) {
-        super(message, cause);
+        super(Reason.SERVER_ERROR, message, cause);
     }
 }
