@@ -23,6 +23,6 @@ public class MemoryAuthenticationDAO extends BaseMemoryDAO<Authentication> imple
 
     @Override
     protected UUID fromObject(Authentication auth) throws DataAccessException {
-        return auth.userId();
+        return auth.token();
     }
 }
