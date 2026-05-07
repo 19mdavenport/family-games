@@ -7,6 +7,7 @@ import java.util.UUID;
 public interface UserDAO {
     void create(User user) throws DataAccessException;
     User read(UUID id) throws DataAccessException;
+    User readFromEmail(String email);
     void update(User user) throws DataAccessException;
     void delete(UUID id) throws DataAccessException;
 }

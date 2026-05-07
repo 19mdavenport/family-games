@@ -63,6 +63,22 @@ public abstract class UserDAOTest {
     }
 
     @Test
+    public void testReadEmailSuccess() throws DataAccessException {
+        for (User user : examples) {
+            userDAO.create(user);
+            User result = userDAO.readFromEmail(user.email());
+            Assertions.assertEquals(user, result, "Read user not the same as created user");
+        }
+    }
+
+    @Test
+    public void testReadEmailNothing() throws DataAccessException {
+        for (User user : examples) {
+            Assertions.assertNull(userDAO.readFromEmail(user.email()), "Read user that hasn't been inserted");
+        }
+    }
+
+    @Test
     public void testUpdateSuccess() throws DataAccessException {
         userDAO.create(examples[0]);
         User updated = new User(examples[0].id(), examples[0].email(), "changed_my_pa$$w0rd");
