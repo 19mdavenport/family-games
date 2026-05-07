@@ -6,9 +6,9 @@ import java.util.Collection;
 import java.util.UUID;
 
 public interface GameDAO {
-    void create(Game game);
-    Game read(UUID id);
-    Collection<Game> readAll();
-    void update(Game game);
-    void delete(UUID id);
+    void create(Game game) throws DataAccessException;
+    Game read(UUID id) throws DataAccessException;
+    Collection<Game> readAll() throws DataAccessException;
+    void update(Game game) throws DataAccessException;
+    void delete(UUID id) throws DataAccessException;
 }

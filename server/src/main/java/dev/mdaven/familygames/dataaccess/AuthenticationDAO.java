@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.UUID;
 
 public interface AuthenticationDAO {
-    void create(Authentication auth);
-    Authentication read(UUID token);
-    void delete(UUID token);
-    void deleteOlderThan(long timestamp);
+    void create(Authentication auth) throws DataAccessException;
+    Authentication read(UUID token) throws DataAccessException;
+    void delete(UUID token) throws DataAccessException;
+    void deleteOlderThan(long timestamp) throws DataAccessException;
 }
