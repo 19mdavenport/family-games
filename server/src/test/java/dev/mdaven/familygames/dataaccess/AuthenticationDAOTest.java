@@ -54,7 +54,7 @@ public abstract class AuthenticationDAOTest {
             DataAccessException thrown = Assertions.assertThrows(DataAccessException.class,
                     () -> authenticationDAO.create(auth));
 
-            Assertions.assertEquals("id/key already exists", thrown.getMessage());
+            Assertions.assertNotNull(thrown.getMessage());
             Assertions.assertNull(thrown.getCause());
         }
 

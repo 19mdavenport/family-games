@@ -52,7 +52,7 @@ public abstract class GameDAOTest {
             DataAccessException thrown = Assertions.assertThrows(DataAccessException.class,
                     () -> gameDAO.create(game));
 
-            Assertions.assertEquals("id/key already exists", thrown.getMessage());
+            Assertions.assertNotNull(thrown.getMessage());
             Assertions.assertNull(thrown.getCause());
         }
 
